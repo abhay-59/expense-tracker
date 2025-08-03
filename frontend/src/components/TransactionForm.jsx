@@ -14,7 +14,7 @@ function TransactionForm({ onAdd }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/transactions",
+        "https://expense-tracker-fglu.onrender.com/api/transactions",
         { type, amount, category },
         { headers: { Authorization: `Bearer ${token}` } }
       );

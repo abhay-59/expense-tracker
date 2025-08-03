@@ -61,7 +61,7 @@ function LandingPage() {
       </section>
 
       <footer className="text-center p-6 border-t text-sm text-gray-500">
-        &copy; 2025 Finance Assistant. Built with ❤️ by Abhay Singh
+        &copy; 2025 Trackwise. Built with ❤️ by Abhay Singh
       </footer>
     </div>
   );

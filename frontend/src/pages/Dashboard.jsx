@@ -22,7 +22,7 @@ const Dashboard = () => {
 
     const fetchTransactions = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/transactions", {
+            const res = await axios.get("https://expense-tracker-fglu.onrender.com/api/transactions", {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setTransactions(res.data);
@@ -59,7 +59,7 @@ const Dashboard = () => {
         console.log("formData after formatting", dataToSend);
         try {
             await axios.post(
-                "http://localhost:5000/api/transactions",
+                "https://expense-tracker-fglu.onrender.com/api/transactions",
                 dataToSend,
                 {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -84,7 +84,7 @@ const Dashboard = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/transactions/${id}`, {
+            await axios.delete(`https://expense-tracker-fglu.onrender.com/api/transactions/${id}`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             fetchTransactions();
@@ -110,7 +110,7 @@ const Dashboard = () => {
         formData.append("receipt", file);
 
         try {
-            const res = await axios.post("http://localhost:5000/api/parse-receipt", formData, {
+            const res = await axios.post("https://expense-tracker-fglu.onrender.com/api/parse-receipt", formData, {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                     "Content-Type": "multipart/form-data"
@@ -121,7 +121,7 @@ const Dashboard = () => {
 
             // Post each transaction to DB
             for (const t of parsedTransactions) {
-                await axios.post("http://localhost:5000/api/transactions", t, {
+                await axios.post("https://expense-tracker-fglu.onrender.com/api/transactions", t, {
                     headers: {
                         Authorization: `Bearer ${user.token}`,
                     },
