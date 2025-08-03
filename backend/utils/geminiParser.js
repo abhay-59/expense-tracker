@@ -1,19 +1,26 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import path from "path";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
-console.log("YESS");
-console.log(process.env.GEMINI_API_KEY);
+// console.log("YESS");
+// console.log(process.env.GEMINI_API_KEY);
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function parseReceiptWithGemini(filePath) {
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
+    const ext = path.extname(filePath).toLowerCase();
+    let mimeType = "image/jpeg";
+    if (ext === ".pdf") {
+        mimeType = "application/pdf";
+    }
+
     const imageBuffer = fs.readFileSync(filePath);
     const imagePart = {
         inlineData: {
             data: imageBuffer.toString("base64"),
-            mimeType: "image/jpeg" // or 'application/pdf' for pdf
+            mimeType
         },
     };
 

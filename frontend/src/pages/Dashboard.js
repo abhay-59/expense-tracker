@@ -142,7 +142,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="card upload-card">
-                <h3>Upload Receipt or Transaction PDF</h3>
+                <h3>Upload Receipt or Transaction image</h3>
                 <input
                     type="file"
                     onChange={handleFileUpload}
