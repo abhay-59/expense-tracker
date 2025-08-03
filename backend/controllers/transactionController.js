@@ -1,4 +1,4 @@
-// controllers/transactionController.js
+
 import Transaction from '../models/Transaction.js';
 
 // Create a new transaction (income or expense)

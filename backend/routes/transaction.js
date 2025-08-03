@@ -1,4 +1,4 @@
-// routes/transaction.js
+
 import express from 'express';
 import {
   createTransaction,
@@ -10,7 +10,7 @@ import authMiddleware from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// All routes below require authentication
+
 router.use(authMiddleware);
 
 router.post('/', createTransaction);          // POST /api/transactions

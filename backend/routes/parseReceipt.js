@@ -1,4 +1,4 @@
-// routes/parseReceipt.js
+
 import express from 'express';
 import multer from 'multer';
 import fs from 'fs';
@@ -12,7 +12,7 @@ router.post('/', upload.single('receipt'), async (req, res) => {
     const filePath = req.file.path;
     const result = await parseReceiptWithGemini(filePath);
 
-    // Delete temp file
+    
     fs.unlinkSync(filePath);
 
     res.json({ transactions: result });

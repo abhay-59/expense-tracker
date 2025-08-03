@@ -3,8 +3,7 @@ dotenv.config();
 import path from "path";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
-// console.log("YESS");
-// console.log(process.env.GEMINI_API_KEY);
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function parseReceiptWithGemini(filePath) {
@@ -32,8 +31,8 @@ export async function parseReceiptWithGemini(filePath) {
 
     const result = await model.generateContent([prompt, imagePart]);
     let text = result.response.text();
-    console.log("Gemini response:", text);
-    // Remove Markdown code block markers if present
+    // console.log("Gemini response:", text);
+
     text = text.replace(/```json|```/g, '').trim();
     return JSON.parse(text);
 }
