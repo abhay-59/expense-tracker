@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../auth/useAuth';
+import { useAuth } from '../auth/AuthContext';
 
 function Login() {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
-    const { setUser } = useAuth();
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleChange = e => {
@@ -17,9 +17,13 @@ function Login() {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-            console.log('Login response:', res.data); 
+            console.log('Login response:', res.data);
             localStorage.setItem('token', res.data.token);
-            setUser(res.data.user);
+            const fullUser = {
+                ...res.data.user,       // includes name, email, _id
+                token: res.data.token,  // 🔥 include token too
+            };
+            login(fullUser); // ✅ Save full user + token in context
             navigate('/dashboard');
         } catch (err) {
             console.error('Login error:', err.response?.data || err.message);
