@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { AuthProvider } from './auth/AuthContext';
-import './App.css';
+//import './App.css';
 
 function App() {
   return (

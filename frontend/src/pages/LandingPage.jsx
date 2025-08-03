@@ -32,7 +32,7 @@ function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-indigo-100 text-gray-800">
       <header className="p-6 flex justify-between items-center shadow-md bg-white sticky top-0 z-10">
-        <h1 className="text-2xl font-bold text-indigo-600">Finance Assistant</h1>
+        <h1 className="text-2xl font-bold text-indigo-600">Trackwise</h1>
         <div>
           <Link to="/login" className="mr-4 text-indigo-600 hover:underline font-medium">Login</Link>
           <Link to="/signup" className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl transition">Sign Up</Link>
