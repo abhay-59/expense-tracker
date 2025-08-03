@@ -1,0 +1,32 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import fs from "fs";
+console.log("YESS");
+console.log(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+export async function parseReceiptWithGemini(filePath) {
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+
+    const imageBuffer = fs.readFileSync(filePath);
+    const imagePart = {
+        inlineData: {
+            data: imageBuffer.toString("base64"),
+            mimeType: "image/jpeg" // or 'application/pdf' for pdf
+        },
+    };
+
+    const prompt = `Extract a list of transactions in JSON (without markdown). Each should have:
+  - type: "expense"
+  - amount
+  - category: (food, fuel, misc, shopping, travel, salary, other)
+  - description`;
+
+    const result = await model.generateContent([prompt, imagePart]);
+    let text = result.response.text();
+    console.log("Gemini response:", text);
+    // Remove Markdown code block markers if present
+    text = text.replace(/```json|```/g, '').trim();
+    return JSON.parse(text);
+}

@@ -1,6 +1,6 @@
 // src/pages/Dashboard.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../auth/AuthContext';
@@ -89,6 +89,43 @@ const Dashboard = () => {
         navigate('/');
     };
 
+    const fileInputRef = useRef(null);
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("receipt", file);
+
+        try {
+            const res = await axios.post("http://localhost:5000/api/parse-receipt", formData, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+
+            const parsedTransactions = res.data.transactions;
+
+            // Post each transaction to DB
+            for (const t of parsedTransactions) {
+                await axios.post("http://localhost:5000/api/transactions", t, {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                });
+            }
+
+            fetchTransactions(); // Refresh dashboard
+            if (fileInputRef.current) fileInputRef.current.value = ""; // Clear file input
+        } catch (err) {
+            console.error("Upload failed", err);
+            alert("Failed to parse or upload");
+        }
+    };
+
+
     return (
         <div className="dashboard">
             <h2>Welcome, {user?.email}</h2>
@@ -103,6 +140,15 @@ const Dashboard = () => {
                     <h3>Total Expense</h3>
                     <p>₹{expense}</p>
                 </div>
+            </div>
+            <div className="card upload-card">
+                <h3>Upload Receipt or Transaction PDF</h3>
+                <input
+                    type="file"
+                    onChange={handleFileUpload}
+                    accept="image/*,application/pdf"
+                    ref={fileInputRef}
+                />
             </div>
 
             <form className="transaction-form" onSubmit={handleSubmit}>
