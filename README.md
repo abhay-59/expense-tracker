@@ -11,6 +11,7 @@ Trackwise is a web-based financial dashboard built with React. It provides a cle
 - for trial purposes on the live application please login with the following account : 
 - email : adm@gmail.com
 - password : 123456
+- if the live application has any issues due to inactivity or anything else please clone the repository and run it on your local machine for a seamless experience.
 
 ---
 
@@ -96,7 +97,13 @@ $ cd expense-tacker
 <img width="1919" height="970" alt="image" src="https://github.com/user-attachments/assets/1b1814e0-bd48-41ff-80e2-e23b01c3bf7b" />
 
 
+---
 
+## ✍️ Author
+
+**Abhay Singh**  
+- 🔗 [GitHub](https://github.com/abhay-59)  
+- 📫 Email: [singhabhay05125@gmail.com](mailto:singhabhay05125@gmail.com)  
 
 
 
